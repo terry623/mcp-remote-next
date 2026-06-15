@@ -23,7 +23,6 @@
   ],
   "main": "dist/index.js",
   "bin": {
-    "mcp-remote": "dist/proxy.js",
     "mcp-remote-next": "dist/proxy.js",
     "mcp-remote-client": "dist/client.js"
   },
