@@ -30,7 +30,7 @@
     "lint-fix": "prettier --check . --write",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
-    "publish": "npm version patch && pnpm run build && npm publish --access public"
+    "release": "npm version patch && pnpm run build && npm publish --access public"
   },
   "dependencies": {
     "express": "^4.21.2",
