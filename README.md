@@ -24,7 +24,7 @@ All the most popular MCP clients (Claude Desktop, Cursor & Windsurf) use the fol
     "remote-example": {
       "command": "npx",
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse"
       ]
     }
@@ -42,7 +42,7 @@ To bypass authentication, or to emit custom headers on all requests to your remo
     "remote-example": {
       "command": "npx",
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse",
         "--header",
         "Authorization: Bearer ${AUTH_TOKEN}"
@@ -61,7 +61,7 @@ To bypass authentication, or to emit custom headers on all requests to your remo
 {
   // rest of config...
   "args": [
-    "mcp-remote",
+    "mcp-remote-next",
     "https://remote.mcp.server/sse",
     "--header",
     "Authorization:${AUTH_HEADER}" // note no spaces around ':'
@@ -82,7 +82,7 @@ To run multiple instances of the same remote server with different configuration
     "atlassian_tenant1": {
       "command": "npx",
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://mcp.atlassian.com/v1/sse",
         "--resource",
         "https://tenant1.atlassian.net/"
@@ -91,7 +91,7 @@ To run multiple instances of the same remote server with different configuration
     "atlassian_tenant2": {
       "command": "npx",
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://mcp.atlassian.com/v1/sse",
         "--resource",
         "https://tenant2.atlassian.net/"
@@ -111,7 +111,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse"
       ]
 ```
@@ -129,7 +129,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ```json
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse",
         "9696"
       ]
@@ -139,7 +139,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ```json
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse",
         "--host",
         "127.0.0.1"
@@ -150,7 +150,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ```json
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "http://internal-service.vpc/sse",
         "--allow-http"
       ]
@@ -160,7 +160,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ```json
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse",
         "--debug"
       ]
@@ -170,7 +170,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ```json
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse",
         "--silent"
       ]
@@ -180,7 +180,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ```json
     "args": [
-      "mcp-remote",
+      "mcp-remote-next",
       "https://remote.mcp.server/sse",
       "--enable-proxy"
     ],
@@ -194,7 +194,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ```json
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse",
         "--ignore-tool",
         "delete*",
@@ -212,7 +212,7 @@ You can specify multiple `--ignore-tool` flags to ignore different patterns. Exa
 
 ```json
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse",
         "--auth-timeout",
         "60"
@@ -344,7 +344,7 @@ this might look like:
     "remote-example": {
       "command": "npx",
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse"
       ],
       "env": {
@@ -370,7 +370,7 @@ For troubleshooting complex issues, especially with token refreshing or authenti
 
 ```json
 "args": [
-  "mcp-remote",
+  "mcp-remote-next",
   "https://remote.mcp.server/sse",
   "--debug"
 ]
