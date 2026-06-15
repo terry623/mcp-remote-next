@@ -1,4 +1,4 @@
-# AGENT.md - mcp-remote Development Guide
+# AGENT.md - mcp-remote-next Development Guide
 
 ## Commands
 
@@ -11,7 +11,7 @@
 ## Architecture
 
 - **Project Type**: TypeScript ESM library for MCP (Model Context Protocol) remote proxy
-- **Main Binaries**: `mcp-remote` (proxy.ts), `mcp-remote-client` (client.ts)
+- **Main Binaries**: `mcp-remote-next` (proxy.ts), `mcp-remote-client` (client.ts)
 - **Core Libraries**: `/src/lib/` contains auth coordination, OAuth client, utils, types
 - **Transport**: Supports both HTTP and SSE transports with OAuth authentication
 - **Config**: Uses `~/.mcp-auth/` directory for credential storage

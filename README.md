@@ -1,4 +1,4 @@
-# `mcp-remote`
+# `mcp-remote-next`
 
 Connect an MCP Client that only supports local (stdio) servers to a Remote MCP Server, with auth support:
 
@@ -12,7 +12,7 @@ But there's a reason most software that _could_ be moved to the web _did_ get mo
 
 With the latest MCP [Authorization specification](https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization), we now have a secure way of sharing our MCP servers with the world _without_ running code on user's laptops. Or at least, you would, if all the popular MCP _clients_ supported it yet. Most are stdio-only, and those that _do_ support HTTP+SSE don't yet support the OAuth flows required.
 
-That's where `mcp-remote` comes in. As soon as your chosen MCP client supports remote, authorized servers, you can remove it. Until that time, drop in this one liner and dress for the MCP clients you want!
+That's where `mcp-remote-next` comes in. As soon as your chosen MCP client supports remote, authorized servers, you can remove it. Until that time, drop in this one liner and dress for the MCP clients you want!
 
 ## Usage
 
@@ -105,7 +105,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
 
 ### Flags
 
-* If `npx` is producing errors, consider adding `-y` as the first argument to auto-accept the installation of the `mcp-remote` package.
+* If `npx` is producing errors, consider adding `-y` as the first argument to auto-accept the installation of the `mcp-remote-next` package.
 
 ```json
       "command": "npx",
@@ -116,16 +116,16 @@ Each unique combination of server URL, resource, and custom headers will maintai
       ]
 ```
 
-* To force `npx` to always check for an updated version of `mcp-remote`, add the `@latest` flag:
+* To force `npx` to always check for an updated version of `mcp-remote-next`, add the `@latest` flag:
 
 ```json
       "args": [
-        "mcp-remote@latest",
+        "mcp-remote-next@latest",
         "https://remote.mcp.server/sse"
       ]
 ```
 
-* To change which port `mcp-remote` listens for an OAuth redirect (by default `3334`), add an additional argument after the server URL. Note that whatever port you specify, if it is unavailable an open port will be chosen at random.
+* To change which port `mcp-remote-next` listens for an OAuth redirect (by default `3334`), add an additional argument after the server URL. Note that whatever port you specify, if it is unavailable an open port will be chosen at random.
 
 ```json
       "args": [
@@ -135,7 +135,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
       ]
 ```
 
-* To change which host `mcp-remote` registers as the OAuth callback URL (by default `localhost`), add the `--host` flag.
+* To change which host `mcp-remote-next` registers as the OAuth callback URL (by default `localhost`), add the `--host` flag.
 
 ```json
       "args": [
@@ -176,7 +176,7 @@ Each unique combination of server URL, resource, and custom headers will maintai
       ]
 ```
 
-* To enable an outbound HTTP(S) proxy for mcp-remote, add the `--enable-proxy` flag. When enabled, mcp-remote will use the proxy settings from common environment variables (for example `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY`).
+* To enable an outbound HTTP(S) proxy for mcp-remote-next, add the `--enable-proxy` flag. When enabled, mcp-remote-next will use the proxy settings from common environment variables (for example `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY`).
 
 ```json
     "args": [
@@ -226,7 +226,7 @@ MCP Remote supports different transport strategies when connecting to an MCP ser
 Specify the transport strategy with the `--transport` flag:
 
 ```bash
-npx mcp-remote https://example.remote/server --transport sse-only
+npx mcp-remote-next https://example.remote/server --transport sse-only
 ```
 
 **Available Strategies:**
@@ -238,15 +238,15 @@ npx mcp-remote https://example.remote/server --transport sse-only
 
 ### Static OAuth Client Metadata
 
-MCP Remote supports providing static OAuth client metadata instead of using the mcp-remote defaults.
+MCP Remote supports providing static OAuth client metadata instead of using the mcp-remote-next defaults.
 This is useful when connecting to OAuth servers that expect specific client/software IDs or scopes.
 
 Provide the client metadata as a JSON string or as a `@` prefixed filepath with the `--static-oauth-client-metadata` flag:
 
 ```bash
-npx mcp-remote https://example.remote/server --static-oauth-client-metadata '{ "scope": "space separated scopes" }'
+npx mcp-remote-next https://example.remote/server --static-oauth-client-metadata '{ "scope": "space separated scopes" }'
 # uses node readfile, so you probably want to use absolute paths if you're not sure what the cwd is
-npx mcp-remote https://example.remote/server --static-oauth-client-metadata '@/Users/username/Library/Application Support/Claude/oauth_client_metadata.json'
+npx mcp-remote-next https://example.remote/server --static-oauth-client-metadata '@/Users/username/Library/Application Support/Claude/oauth_client_metadata.json'
 ```
 
 ### Static OAuth Client Information
@@ -262,9 +262,9 @@ Provide the client metadata as a JSON string or as a `@` prefixed filepath with 
 ```bash
 export MCP_REMOTE_CLIENT_ID=xxx
 export MCP_REMOTE_CLIENT_SECRET=yyy
-npx mcp-remote https://example.remote/server --static-oauth-client-info "{ \"client_id\": \"$MCP_REMOTE_CLIENT_ID\", \"client_secret\": \"$MCP_REMOTE_CLIENT_SECRET\" }"
+npx mcp-remote-next https://example.remote/server --static-oauth-client-info "{ \"client_id\": \"$MCP_REMOTE_CLIENT_ID\", \"client_secret\": \"$MCP_REMOTE_CLIENT_SECRET\" }"
 # uses node readfile, so you probably want to use absolute paths if you're not sure what the cwd is
-npx mcp-remote https://example.remote/server --static-oauth-client-info '@/Users/username/Library/Application Support/Claude/oauth_client_info.json'
+npx mcp-remote-next https://example.remote/server --static-oauth-client-info '@/Users/username/Library/Application Support/Claude/oauth_client_info.json'
 ```
 
 ### Claude Desktop
@@ -286,7 +286,7 @@ of the input box.
 
 [Official Docs](https://docs.cursor.com/context/model-context-protocol). The configuration file is located at `~/.cursor/mcp.json`.
 
-As of version `0.48.0`, Cursor supports unauthed SSE servers directly. If your MCP server is using the official MCP OAuth authorization protocol, you still need to add a **"command"** server and call `mcp-remote`.
+As of version `0.48.0`, Cursor supports unauthed SSE servers directly. If your MCP server is using the official MCP OAuth authorization protocol, you still need to add a **"command"** server and call `mcp-remote-next`.
 
 ### Windsurf
 
@@ -313,7 +313,7 @@ Know of more resources you'd like to share? Please add them to this Readme and s
 
 ### Clear your `~/.mcp-auth` directory
 
-`mcp-remote` stores all the credential information inside `~/.mcp-auth` (or wherever your `MCP_REMOTE_CONFIG_DIR` points to). If you're having persistent issues, try running:
+`mcp-remote-next` stores all the credential information inside `~/.mcp-auth` (or wherever your `MCP_REMOTE_CONFIG_DIR` points to). If you're having persistent issues, try running:
 
 ```sh
 rm -rf ~/.mcp-auth
@@ -394,7 +394,7 @@ You can run `rm -rf ~/.mcp-auth` to clear any locally stored state and tokens.
 Run the following on the command line (not from an MCP server):
 
 ```shell
-npx -p mcp-remote@latest mcp-remote-client https://remote.mcp.server/sse
+npx -p mcp-remote-next@latest mcp-remote-client https://remote.mcp.server/sse
 ```
 
 This will run through the entire authorization flow and attempt to list the tools & resources at the remote URL. Try this after running `rm -rf ~/.mcp-auth` to see if stale credentials are your problem, otherwise hopefully the issue will be more obvious in these logs than those in your MCP client.

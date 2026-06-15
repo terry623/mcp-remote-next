@@ -1,8 +1,8 @@
-# MCP-Remote Test Plan
+# MCP-Remote-Next Test Plan
 
 ## Overview
 
-This document outlines the testing strategy for `mcp-remote`, a proxy and client for connecting to remote MCP servers with OAuth support. The goal is to provide confidence that new PRs don't break core functionality while keeping the test infrastructure maintainable.
+This document outlines the testing strategy for `mcp-remote-next`, a proxy and client for connecting to remote MCP servers with OAuth support. The goal is to provide confidence that new PRs don't break core functionality while keeping the test infrastructure maintainable.
 
 ## Testing Challenges
 
@@ -18,7 +18,7 @@ This document outlines the testing strategy for `mcp-remote`, a proxy and client
 
 **Build a minimal test client using `@modelcontextprotocol/sdk`** that:
 
-- Spawns `mcp-remote` as a stdio subprocess (testing the real CLI)
+- Spawns `mcp-remote-next` as a stdio subprocess (testing the real CLI)
 - Connects via `StdioClientTransport` (how real MCP clients use it)
 - Makes multiple requests in one session (tools/list, resources/list, prompts/list)
 - Provides clean assertions on responses
@@ -28,7 +28,7 @@ This tests the **actual user flow**: spawning the proxy via CLI and communicatin
 
 ### Why Not Existing Tools?
 
-- **client.ts**: Tests connecting _to_ remote servers, not _invoking_ mcp-remote as a CLI tool
+- **client.ts**: Tests connecting _to_ remote servers, not _invoking_ mcp-remote-next as a CLI tool
 - **MCP Inspector CLI**: Requires separate invocations per method (spawns process each time, unrealistic)
 - **fast-agent**: Requires Go, real inference provider (Groq), and API keys - too complex
 
@@ -42,7 +42,7 @@ This tests the **actual user flow**: spawning the proxy via CLI and communicatin
          │ stdio
          ↓
 ┌─────────────────┐
-│  mcp-remote     │  ← Spawned as: node dist/proxy.js <server-url>
+│  mcp-remote-next │  ← Spawned as: node dist/proxy.js <server-url>
 │  (proxy.ts)     │
 └────────┬────────┘
          │ SSE/HTTP
@@ -190,7 +190,7 @@ test/e2e/
 
 ### Priority 5: Proxy-specific Behavior
 
-- [ ] clientInfo name rewrite ("via mcp-remote X.Y.Z")
+- [ ] clientInfo name rewrite ("via mcp-remote-next X.Y.Z")
 - [ ] Ignored tools filtered from tools/list
 - [ ] Ignored tools blocked in tools/call
 - [ ] Bidirectional error propagation
@@ -228,7 +228,7 @@ test/e2e/
 
 3. **Simple Test Client**
 
-   - [ ] Spawns `mcp-remote` as subprocess with server URL
+   - [ ] Spawns `mcp-remote-next` as subprocess with server URL
    - [ ] Connects via StdioClientTransport from MCP SDK
    - [ ] Requests tools/list, resources/list, prompts/list
    - [ ] Parses JSON responses for assertions
@@ -236,7 +236,7 @@ test/e2e/
 
 4. **Basic E2E Test**
 
-   - [ ] Build mcp-remote: `pnpm build`
+   - [ ] Build mcp-remote-next: `pnpm build`
    - [ ] Start local test server (get URL)
    - [ ] Spawn `node dist/proxy.js <url>` as stdio
    - [ ] Connect test client to subprocess

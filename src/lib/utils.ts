@@ -195,7 +195,7 @@ export function mcpProxy({
 
     if (message.method === 'initialize') {
       const { clientInfo } = message.params
-      if (clientInfo) clientInfo.name = `${clientInfo.name} (via mcp-remote ${MCP_REMOTE_VERSION})`
+      if (clientInfo) clientInfo.name = `${clientInfo.name} (via mcp-remote-next ${MCP_REMOTE_VERSION})`
       log(JSON.stringify(message, null, 2))
 
       debugLog('Initialize message with modified client info', { clientInfo })

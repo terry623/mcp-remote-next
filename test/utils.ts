@@ -24,7 +24,7 @@ export async function createMCPClient(serverUrl: string, args: string[] = []): P
 
   const client = new Client(
     {
-      name: 'mcp-remote-test-client',
+      name: 'mcp-remote-next-test-client',
       version: '1.0.0',
     },
     {
