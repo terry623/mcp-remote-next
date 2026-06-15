@@ -885,7 +885,7 @@ export async function parseCommandLineArgs(args: string[], usage: string) {
   // Set server hash globally for debug logging
   global.currentServerUrlHash = serverUrlHash
 
-  debugLog(`Starting mcp-remote with server URL: ${serverUrl}`)
+  debugLog(`Starting mcp-remote-next with server URL: ${serverUrl}`)
 
   const defaultPort = calculateDefaultPort(serverUrlHash)
 

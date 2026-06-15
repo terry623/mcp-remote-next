@@ -1,10 +1,10 @@
-# MCP-Remote Test Suite
+# MCP-Remote-Next Test Suite
 
-E2E tests for mcp-remote connecting to public MCP servers.
+E2E tests for mcp-remote-next connecting to public MCP servers.
 
 ## Architecture
 
-The test suite uses the real mcp-remote client CLI to connect to public MCP servers over the internet. This validates the complete client flow without requiring local server setup.
+The test suite uses the real mcp-remote-next client CLI to connect to public MCP servers over the internet. This validates the complete client flow without requiring local server setup.
 
 ```
 ┌─────────────────┐
@@ -14,7 +14,7 @@ The test suite uses the real mcp-remote client CLI to connect to public MCP serv
          │ spawns
          ↓
 ┌─────────────────┐
-│  mcp-remote     │  ← node dist/client.js <url>
+│  mcp-remote-next│  ← node dist/client.js <url>
 │  (client.ts)    │
 └────────┬────────┘
          │ SSE/HTTP
@@ -37,7 +37,7 @@ pnpm install
 ## Running Tests
 
 ```bash
-# Run all tests (builds mcp-remote first)
+# Run all tests (builds mcp-remote-next first)
 pnpm test
 
 # Watch mode
@@ -48,7 +48,7 @@ pnpm test:watch
 
 ### Public Server E2E Tests (e2e.test.ts)
 
-Tests the mcp-remote client connecting to real public MCP servers:
+Tests the mcp-remote-next client connecting to real public MCP servers:
 
 - **Hugging Face MCP Server** (`https://huggingface.co/mcp`)
   - SSE transport
@@ -64,7 +64,7 @@ Tests the mcp-remote client connecting to real public MCP servers:
 
 Helper functions to keep tests concise:
 
-- `createMCPClient(url, args)` - Spawns mcp-remote client and connects via stdio
+- `createMCPClient(url, args)` - Spawns mcp-remote-next client and connects via stdio
 - `verifyConnection(client)` - Lists all capabilities (tools/prompts/resources)
 - `listTools(client)` - Safely lists tools with fallback for unsupported servers
 - `listPrompts(client)` - Safely lists prompts with fallback
@@ -79,14 +79,14 @@ All list functions handle:
 
 ### Build Integration
 
-Tests automatically build the parent mcp-remote project before running:
+Tests automatically build the parent mcp-remote-next project before running:
 - `pnpm build:parent` runs `cd .. && pnpm build`
 - Ensures `dist/client.js` exists
 - Run by both `pnpm test` and `pnpm test:watch`
 
 ### Process Management
 
-- Tests spawn the mcp-remote client as a subprocess
+- Tests spawn the mcp-remote-next client as a subprocess
 - MCP SDK's `StdioClientTransport` handles communication
 - `afterEach` hooks ensure cleanup of spawned processes
 - No background processes required
