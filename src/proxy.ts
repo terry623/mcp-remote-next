@@ -145,7 +145,7 @@ to the CA certificate file. If using claude_desktop_config.json, this might look
     "\${mcpServerName}": {
       "command": "npx",
       "args": [
-        "mcp-remote",
+        "mcp-remote-next",
         "https://remote.mcp.server/sse"
       ],
       "env": {

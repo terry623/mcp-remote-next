@@ -79,7 +79,7 @@ async function runClient(
   // Create the client
   const client = new Client(
     {
-      name: 'mcp-remote',
+      name: 'mcp-remote-next',
       version: MCP_REMOTE_VERSION,
     },
     {
