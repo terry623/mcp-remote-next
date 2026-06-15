@@ -1,5 +1,5 @@
 {
-  "name": "mcp-remote",
+  "name": "mcp-remote-next",
   "version": "0.1.38",
   "description": "Remote proxy for Model Context Protocol, allowing local-only clients to connect to remote servers using oAuth",
   "keywords": [
@@ -29,7 +29,8 @@
     "check": "prettier --check . && tsc",
     "lint-fix": "prettier --check . --write",
     "test:unit": "vitest run",
-    "test:unit:watch": "vitest"
+    "test:unit:watch": "vitest",
+    "publish": "npm version patch && pnpm run build && npm publish --access public"
   },
   "dependencies": {
     "express": "^4.21.2",
