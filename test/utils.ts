@@ -13,7 +13,7 @@ export interface MCPClient {
 }
 
 /**
- * Spawns the mcp-remote proxy and connects via stdio
+ * Spawns the mcp-remote-next proxy and connects via stdio
  */
 export async function createMCPClient(serverUrl: string, args: string[] = []): Promise<MCPClient> {
   const transport = new StdioClientTransport({
