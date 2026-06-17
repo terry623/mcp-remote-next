@@ -31,6 +31,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          registry-url: https://registry.npmjs.org
 
       - name: Setup pnpm & install
         uses: wyvox/action-setup-pnpm@v3
@@ -52,4 +53,6 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        run: npm publish --access public --provenance
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken
+          npm publish --access public --provenance
