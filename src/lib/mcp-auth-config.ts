@@ -17,7 +17,7 @@ import { log, MCP_REMOTE_VERSION } from './utils'
  *   - Format: OAuthClientInformation object with client_id and other registration details
  * - {server_hash}_tokens.json: Contains OAuth access and refresh tokens
  *   - Format: OAuthTokens object with access_token, refresh_token, and expiration information
- * - {server_hash}_code_verifier.txt: Contains the PKCE code verifier for the current OAuth flow
+ * - {server_hash}_code_verifier_{state}.txt: Contains the PKCE code verifier for the current OAuth flow
  *   - Format: Plain text string used for PKCE verification
  *
  * All JSON files are stored with 2-space indentation for readability.
@@ -84,7 +84,7 @@ export async function deleteLockfile(serverUrlHash: string): Promise<void> {
 export function getConfigDir(): string {
   const baseConfigDir = process.env.MCP_REMOTE_CONFIG_DIR || path.join(os.homedir(), '.mcp-auth')
   // Add a version subdirectory so we don't need to worry about backwards/forwards compatibility yet
-  return path.join(baseConfigDir, `mcp-remote-next-${MCP_REMOTE_VERSION}`)
+  return path.join(baseConfigDir, `mcp-remote-${MCP_REMOTE_VERSION}`)
 }
 
 /**
