@@ -25,6 +25,6 @@ describe('MCP Remote E2E', () => {
     const tools = await listTools(client.client)
     const toolNames = tools.map((t) => t.name)
     expect(toolNames).toContain('resolve-library-id')
-    expect(toolNames).toContain('get-library-docs')
+    expect(toolNames).toContain('query-docs')
   }, 30000)
 })
