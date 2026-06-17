@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest'
-import { createMCPClient, verifyConnection, listTools } from './utils.js'
+import { createMCPClient, listTools } from './utils.js'
 import type { MCPClient } from './utils.js'
 
 describe('MCP Remote E2E', () => {
@@ -12,15 +12,6 @@ describe('MCP Remote E2E', () => {
     }
   })
 
-  it('connects to Hugging Face MCP server', async () => {
-    client = await createMCPClient('https://huggingface.co/mcp')
-    const tools = await listTools(client.client)
-    const toolNames = tools.map((t) => t.name)
-    expect(toolNames).toContain('hf_whoami')
-    expect(toolNames).toContain('model_search')
-    expect(toolNames).toContain('dataset_search')
-  }, 30000)
-
   it('connects to Cloudflare docs MCP server', async () => {
     client = await createMCPClient('https://docs.mcp.cloudflare.com/mcp')
     const tools = await listTools(client.client)
@@ -29,11 +20,11 @@ describe('MCP Remote E2E', () => {
     expect(toolNames).toContain('migrate_pages_to_workers_guide')
   }, 30000)
 
-  it('lists tools from Hugging Face', async () => {
-    client = await createMCPClient('https://huggingface.co/mcp')
+  it('connects to Context7 MCP server', async () => {
+    client = await createMCPClient('https://mcp.context7.com/mcp')
     const tools = await listTools(client.client)
-    expect(tools.length).toBeGreaterThan(0)
-    expect(tools[0]).toHaveProperty('name')
-    expect(tools[0]).toHaveProperty('description')
+    const toolNames = tools.map((t) => t.name)
+    expect(toolNames).toContain('resolve-library-id')
+    expect(toolNames).toContain('get-library-docs')
   }, 30000)
 })
