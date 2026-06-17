@@ -33,6 +33,9 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
 
+      - name: Upgrade npm for OIDC Trusted Publishing support
+        run: npm install -g npm@latest
+
       - name: Setup pnpm & install
         uses: wyvox/action-setup-pnpm@v3
         with:
@@ -53,6 +56,4 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        run: |
-          npm config delete //registry.npmjs.org/:_authToken
-          npm publish --access public --provenance
+        run: npm publish --access public
