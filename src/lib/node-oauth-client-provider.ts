@@ -285,7 +285,7 @@ export class NodeOAuthClientProvider implements OAuthClientProvider {
    */
   async saveCodeVerifier(codeVerifier: string): Promise<void> {
     debugLog('Saving code verifier')
-    await writeTextFile(this.serverUrlHash, 'code_verifier.txt', codeVerifier)
+    await writeTextFile(this.serverUrlHash, `code_verifier_${this._state}.txt`, codeVerifier)
   }
 
   /**
@@ -294,7 +294,7 @@ export class NodeOAuthClientProvider implements OAuthClientProvider {
    */
   async codeVerifier(): Promise<string> {
     debugLog('Reading code verifier')
-    const verifier = await readTextFile(this.serverUrlHash, 'code_verifier.txt', 'No code verifier saved for session')
+    const verifier = await readTextFile(this.serverUrlHash, `code_verifier_${this._state}.txt`, 'No code verifier saved for session')
     debugLog('Code verifier found:', !!verifier)
     return verifier
   }
@@ -311,7 +311,7 @@ export class NodeOAuthClientProvider implements OAuthClientProvider {
         await Promise.all([
           deleteConfigFile(this.serverUrlHash, 'client_info.json'),
           deleteConfigFile(this.serverUrlHash, 'tokens.json'),
-          deleteConfigFile(this.serverUrlHash, 'code_verifier.txt'),
+          deleteConfigFile(this.serverUrlHash, `code_verifier_${this._state}.txt`),
         ])
         this._clientInfo = undefined
         debugLog('All credentials invalidated')
@@ -329,7 +329,7 @@ export class NodeOAuthClientProvider implements OAuthClientProvider {
         break
 
       case 'verifier':
-        await deleteConfigFile(this.serverUrlHash, 'code_verifier.txt')
+        await deleteConfigFile(this.serverUrlHash, `code_verifier_${this._state}.txt`)
         debugLog('Code verifier invalidated')
         break
 
