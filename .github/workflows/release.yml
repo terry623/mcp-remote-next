@@ -32,6 +32,7 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+          package-manager-cache: false
 
       - name: Setup pnpm & install
         uses: wyvox/action-setup-pnpm@v3
