@@ -1,7 +1,7 @@
 import path from 'path'
 import os from 'os'
 import fs from 'fs/promises'
-import { log, MCP_REMOTE_VERSION } from './utils'
+import { log, debugLog, MCP_REMOTE_VERSION } from './utils'
 
 /**
  * MCP Remote Authentication Configuration
@@ -185,6 +185,30 @@ export async function readTextFile(serverUrlHash: string, filename: string, erro
     return await fs.readFile(filePath, 'utf-8')
   } catch (error) {
     throw new Error(errorMessage || `Error reading ${filename}`)
+  }
+}
+
+/**
+ * Deletes all stale code_verifier files for the given server hash, except the current session's verifier.
+ * Called after a successful token exchange to prevent accumulation of orphaned verifier files.
+ * @param serverUrlHash The hash of the server URL
+ * @param currentState The current session's state UUID (its verifier file is preserved)
+ */
+export async function cleanupStaleCodeVerifiers(serverUrlHash: string, currentState: string): Promise<void> {
+  try {
+    const configDir = getConfigDir()
+    const entries = await fs.readdir(configDir)
+    const stale = entries.filter(
+      (name) =>
+        name.startsWith(`${serverUrlHash}_code_verifier_`) &&
+        !name.endsWith(`_${currentState}.txt`),
+    )
+    await Promise.all(stale.map((name) => deleteConfigFile(serverUrlHash, name)))
+    if (stale.length > 0) {
+      debugLog(`Cleaned up ${stale.length} stale code verifier(s) for ${serverUrlHash}`)
+    }
+  } catch (error) {
+    debugLog('Error cleaning up stale code verifiers:', error)
   }
 }
 
