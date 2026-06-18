@@ -17,8 +17,8 @@ import { log, debugLog, MCP_REMOTE_VERSION } from './utils'
  *   - Format: OAuthClientInformation object with client_id and other registration details
  * - {server_hash}_tokens.json: Contains OAuth access and refresh tokens
  *   - Format: OAuthTokens object with access_token, refresh_token, and expiration information
- * - {server_hash}_code_verifier_{state}.txt: Contains the PKCE code verifier for the current OAuth flow
- *   - Format: Plain text string used for PKCE verification
+ * - {server_hash}_code_verifier_{state}.txt: Contains the PKCE code verifier for an in-progress OAuth flow
+ *   - Format: Plain text string used for PKCE verification; deleted after successful token exchange
  *
  * All JSON files are stored with 2-space indentation for readability.
  */
@@ -189,22 +189,21 @@ export async function readTextFile(serverUrlHash: string, filename: string, erro
 }
 
 /**
- * Deletes all stale code_verifier files for the given server hash, except the current session's verifier.
- * Called after a successful token exchange to prevent accumulation of orphaned verifier files.
+ * Deletes all code_verifier files for the given server hash.
+ * Called after a successful token exchange — verifiers are single-use and no longer needed.
  * @param serverUrlHash The hash of the server URL
- * @param currentState The current session's state UUID (its verifier file is preserved)
  */
-export async function cleanupStaleCodeVerifiers(serverUrlHash: string, currentState: string): Promise<void> {
+export async function cleanupAllCodeVerifiers(serverUrlHash: string): Promise<void> {
   try {
     const configDir = getConfigDir()
     const entries = await fs.readdir(configDir)
-    const stale = entries.filter((name) => name.startsWith(`${serverUrlHash}_code_verifier_`) && !name.endsWith(`_${currentState}.txt`))
-    await Promise.all(stale.map((name) => deleteConfigFile(serverUrlHash, name)))
-    if (stale.length > 0) {
-      debugLog(`Cleaned up ${stale.length} stale code verifier(s) for ${serverUrlHash}`)
+    const verifiers = entries.filter((name) => name.startsWith(`${serverUrlHash}_code_verifier_`))
+    await Promise.all(verifiers.map((name) => fs.unlink(path.join(configDir, name))))
+    if (verifiers.length > 0) {
+      debugLog(`Cleaned up ${verifiers.length} code verifier(s) for ${serverUrlHash}`)
     }
   } catch (error) {
-    debugLog('Error cleaning up stale code verifiers:', error)
+    debugLog('Error cleaning up code verifiers:', error)
   }
 }
 
