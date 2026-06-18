@@ -198,11 +198,7 @@ export async function cleanupStaleCodeVerifiers(serverUrlHash: string, currentSt
   try {
     const configDir = getConfigDir()
     const entries = await fs.readdir(configDir)
-    const stale = entries.filter(
-      (name) =>
-        name.startsWith(`${serverUrlHash}_code_verifier_`) &&
-        !name.endsWith(`_${currentState}.txt`),
-    )
+    const stale = entries.filter((name) => name.startsWith(`${serverUrlHash}_code_verifier_`) && !name.endsWith(`_${currentState}.txt`))
     await Promise.all(stale.map((name) => deleteConfigFile(serverUrlHash, name)))
     if (stale.length > 0) {
       debugLog(`Cleaned up ${stale.length} stale code verifier(s) for ${serverUrlHash}`)
