@@ -7,7 +7,7 @@ import {
   OAuthTokensSchema,
 } from '@modelcontextprotocol/sdk/shared/auth.js'
 import type { OAuthProviderOptions, StaticOAuthClientMetadata } from './types'
-import { readJsonFile, writeJsonFile, readTextFile, writeTextFile, deleteConfigFile, cleanupStaleCodeVerifiers } from './mcp-auth-config'
+import { readJsonFile, writeJsonFile, readTextFile, writeTextFile, deleteConfigFile, cleanupAllCodeVerifiers } from './mcp-auth-config'
 import { StaticOAuthClientInformationFull } from './types'
 import { log, debugLog, MCP_REMOTE_VERSION } from './utils'
 import { sanitizeUrl } from 'strict-url-sanitise'
@@ -246,7 +246,7 @@ export class NodeOAuthClientProvider implements OAuthClientProvider {
     })
 
     await writeJsonFile(this.serverUrlHash, 'tokens.json', tokens)
-    await cleanupStaleCodeVerifiers(this.serverUrlHash, this._state)
+    await cleanupAllCodeVerifiers(this.serverUrlHash)
   }
 
   /**
