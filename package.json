@@ -1,6 +1,6 @@
 {
   "name": "mcp-remote-next",
-  "version": "0.1.60",
+  "version": "0.1.58",
   "description": "Remote proxy for Model Context Protocol, allowing local-only clients to connect to remote servers using oAuth",
   "keywords": [
     "mcp",
@@ -16,6 +16,9 @@
     "url": "git+https://github.com/terry623/mcp-remote-next.git"
   },
   "type": "module",
+  "engines": {
+    "node": ">=18.17"
+  },
   "files": [
     "dist",
     "README.md",
